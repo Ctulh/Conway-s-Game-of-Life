@@ -38,6 +38,13 @@ void Application::run() {
                     }
                     break;
                 }
+                case SDL_KEYDOWN: {
+                    for(auto& sdlElement: m_elements) {
+                        if(sdlElement->onKeyPressed(event.key.keysym.sym))
+                            break;
+                    }
+                    break;
+                }
                 case SDL_MOUSEBUTTONDOWN: {
                     for(auto& sdlElement: m_elements) {
                         int x, y;

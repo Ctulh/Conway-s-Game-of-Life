@@ -14,7 +14,6 @@ void LifeAdapter::draw(std::shared_ptr<SDL_Renderer> renderer) const {
 
     for(int i = 0 ; i < rows; ++i) {
         for(int j = 0 ; j < columns; ++j) {
-            if(!grid[i][j]) continue;
             SDL_Rect r;
             r.x = j * m_squareSide;
             r.y = i * m_squareSide;
@@ -24,10 +23,23 @@ void LifeAdapter::draw(std::shared_ptr<SDL_Renderer> renderer) const {
                 SDL_SetRenderDrawColor(renderer.get(), 255, 255, 255, SDL_ALPHA_OPAQUE);
                 SDL_RenderFillRect(renderer.get(), &r);
             }
+            else {
+                if(!m_shouldDrawGrid)
+                    continue;
+                SDL_SetRenderDrawColor(renderer.get(), 180, 180, 180, SDL_ALPHA_OPAQUE);
+                SDL_RenderDrawRect(renderer.get(), &r);
+            }
         }
     }
 }
 
+bool LifeAdapter::onKeyPressed(int key) {
+    if(key == SDLK_c) {
+        toggleGrid();
+        return true;
+    }
+    return false;
+}
 bool LifeAdapter::onMouseButtonDown(int x, int y) {
     int cellRow = x / m_squareSide;
     int cellColumn = y / m_squareSide;
@@ -38,7 +50,12 @@ bool LifeAdapter::onMouseButtonDown(int x, int y) {
 void LifeAdapter::setWindowSize(int height, int width) {
     m_windowHeight = height;
     m_windowWidth = width;
-    m_squareSide = height / getGrid().size();
+    int gridSize = getHeight();
+    m_squareSide = std::min(height / gridSize, width/ gridSize);
+}
+
+void LifeAdapter::toggleGrid() {
+    m_shouldDrawGrid = !m_shouldDrawGrid;
 }
 
 void LifeAdapter::onUpdate() {

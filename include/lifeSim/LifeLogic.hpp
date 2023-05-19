@@ -13,7 +13,8 @@ public:
 public:
     std::vector<std::vector<bool>> getGrid() const;
     void update();
-
+    int getHeight() const;
+    int getWidth() const;
 private:
     void updateNeighbours(int i, int j, int action);
 private:

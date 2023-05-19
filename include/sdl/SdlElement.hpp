@@ -6,8 +6,9 @@
 
 #include "events/Event.hpp"
 #include "events/MouseEvent.hpp"
+#include "events/KeyEvent.hpp"
 
-class SdlElement: public Event, public MouseEvent {
+class SdlElement: public Event, public MouseEvent, public KeyEvent {
 public:
     virtual ~SdlElement() = default;
 

@@ -17,6 +17,13 @@ void LifeLogic::setState(std::vector<std::vector<bool>> grid) {
     m_grid = grid;
 }
 
+int LifeLogic::getHeight() const {
+    return m_height;
+}
+
+int LifeLogic::getWidth() const {
+    return m_width;
+}
 
 void LifeLogic::invertCell(int row, int column) {
     if(std::min(row, column) < 0 || row >= m_height || column >= m_width) return;

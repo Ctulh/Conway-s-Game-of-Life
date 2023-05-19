@@ -13,7 +13,10 @@ public:
     void draw(std::shared_ptr<SDL_Renderer> renderer) const override;
     void setWindowSize(int height, int width) override;
     bool onMouseButtonDown(int x, int y) override;
+    bool onKeyPressed(int key) override;
+    void toggleGrid();
 private:
+    bool m_shouldDrawGrid = true;
     int m_windowHeight = 0;
     int m_windowWidth = 0;
     int m_squareSide = 100;
